@@ -1,0 +1,22 @@
+1. Make sure that you have built cdb2jdbc.
+2. Run `make' to compile.
+3. Run `CLUSTER=<your_cluster> DB=<your_db> make call' to invoke the CLI.
+   You could also export those environment variables first and then run `make call'.
+
+
+Using @bind directive
+
+The syntax is,
+	@bind <type> <indx> <value>
+
+Type can be one of "integer", "real" and "cstring". The support for other types will be added later.
+JDBC only supports index-based parameter binding, so you'd need to bind to index in cdb2jdbcli too.
+Note that in JDBC, the index starts at 1.
+
+Examples
+
+$ CLUSTER=alpha DB=ixmmdb make call
+cdb2jdbc> @bind cstring 1 pi
+cdb2jdbc> @bind real 2 3.1415923
+cdb2jdbc> select ? as key, ? as value
+(key=pi, value=3.1415923)
